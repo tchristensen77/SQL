@@ -34,3 +34,11 @@ VALUES(1, 'Jack', 'Biology');
 
 SELECT *
 FROM student;
+
+INSERT INTO student
+VALUES(2, 'Kate', 'Sociology'),
+(3, 'Claire', 'Sociology'),
+(4, 'Jack', 'Biology'),
+(5, 'Mike', 'Computer Science');
+
+
