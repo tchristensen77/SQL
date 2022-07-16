@@ -167,3 +167,4 @@ INSERT INTO works_with VALUES(102, 406, 15000);
 INSERT INTO works_with VALUES(105, 406, 130000);
 
 ## Now that all of the information is in Dunder Miffins data warehouse, our stakeholders are gain insights from the data
+ 
