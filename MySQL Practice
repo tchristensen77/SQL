@@ -1,6 +1,7 @@
 ## I started learning SQL using PostgreSQL, in this file I am praticing using MySQL
+## In this scenario, we are working for a University to help update their data warehouse and provide information about the students.
 
-## Creating Tables
+## Creating student table
 
 CREATE TABLE student (
     student_id INT PRIMARY KEY
@@ -23,22 +24,33 @@ ADD gpa DECIMAL(3, 2);
 
 ALTER TABLE student DROP COLUMN gpa;
 
-## Removed the gpa column.
+## Removed the gpa column. Because administration changed their mind about including GPA in this table.
 
-## Adding Information to Tables
-
-## Adding information to the student table then making sure it was entered correctly.
+## Adding studnet information to the student table
 
 INSERT INTO student
-VALUES(1, 'Jack', 'Biology');
+VALUES (1, 'Jack', 'Biology'),
+    (2, 'Kate', 'Sociology'),
+    (3, 'Claire', 'Sociology'),
+    (4, 'Jack', 'Biology'),
+    (5, 'Mike', 'Computer Science');
 
 SELECT *
-FROM student;
+FROM student
+
+## Jack (student ID: 4) wants to go by his full name: Jackson
+
+UPDATE studend
+SET name = 'Jackson'
+WHERE student_id = 4
+
+##  A new student enrolled in University
 
 INSERT INTO student
-VALUES(2, 'Kate', 'Sociology'),
-(3, 'Claire', 'Sociology'),
-(4, 'Jack', 'Biology'),
-(5, 'Mike', 'Computer Science');
+VALUES (6, 'Hannah', 'Nursing')
+
+
+
+
 
 
