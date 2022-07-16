@@ -1,7 +1,7 @@
 ## I started learning SQL using PostgreSQL, in this file I am praticing using MySQL
-## In this scenario, we are working for a University to help update their data warehouse and provide information about the students.
 
-## Creating student table
+## In this scenario, we are working for a University to help update their data warehouse and provide information about the students.
+## Creating student table with information about the student's ID, their name and their major. ID is integer datatype, name and major are string data types.
 
 CREATE TABLE student (
     student_id INT PRIMARY KEY
@@ -9,22 +9,17 @@ CREATE TABLE student (
     major VARCHAR(20)
 );
 
-## Created a student table with 3 columns:
-## 1. student_id which is the primary key with an integer data type
-## 2. name for the students name in a string data type with up to 20 characters
-## 3. major for the students major in a string data type with up to 20 characters
-
 DESCRIBE student;
 
 ## Used DESCRIBE to make sure the table was created correctly
-## Adding a new column for a students gpa in a decimal data type with 3 digits, 2 digits after in the decimal
+## Adding a new column for a student GPA in a decimal data type with 3 digits, 2 digits after in the decimal
 
 ALTER TABLE student 
 ADD gpa DECIMAL(3, 2);
 
 ALTER TABLE student DROP COLUMN gpa;
 
-## Removed the gpa column. Because administration changed their mind about including GPA in this table.
+## Removed the gpa column because administration changed their mind about including GPA in this table.
 
 ## Adding studnet information to the student table
 
@@ -48,9 +43,4 @@ WHERE student_id = 4
 
 INSERT INTO student
 VALUES (6, 'Hannah', 'Nursing')
-
-
-
-
-
 
