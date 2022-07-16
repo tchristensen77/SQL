@@ -1,0 +1,36 @@
+## I started learning SQL using PostgreSQL, in this file I am praticing using MySQL
+
+## Creating Tables
+
+CREATE TABLE student (
+    student_id INT PRIMARY KEY
+    name VARCHAR(20),
+    major VARCHAR(20)
+);
+
+## Created a student table with 3 columns:
+## 1. student_id which is the primary key with an integer data type
+## 2. name for the students name in a string data type with up to 20 characters
+## 3. major for the students major in a string data type with up to 20 characters
+
+DESCRIBE student;
+
+## Used DESCRIBE to make sure the table was created correctly
+## Adding a new column for a students gpa in a decimal data type with 3 digits, 2 digits after in the decimal
+
+ALTER TABLE student 
+ADD gpa DECIMAL(3, 2);
+
+ALTER TABLE student DROP COLUMN gpa;
+
+## Removed the gpa column.
+
+## Adding Information to Tables
+
+## Adding information to the student table then making sure it was entered correctly.
+
+INSERT INTO student
+VALUES(1, 'Jack', 'Biology');
+
+SELECT *
+FROM student;
