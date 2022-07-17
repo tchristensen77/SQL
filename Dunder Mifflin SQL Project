@@ -167,5 +167,92 @@ INSERT INTO works_with VALUES(107, 405, 26000);
 INSERT INTO works_with VALUES(102, 406, 15000);
 INSERT INTO works_with VALUES(105, 406, 130000);
 
-## Now that all of the information is in Dunder Miffins data warehouse, our stakeholders are gain insights from the data
- 
+## Now that all of the information is in Dunder Mifflins data warehouse, our stakeholders want to gain insights from the data.
+
+## Corporate wants to know employees salaries in descending order.
+
+SELECT 
+    first_name, 
+    salary
+FROM 
+    employee
+ORDER BY 
+    salary DESC;
+
+  employee   salary
+0	David	250000
+1	Jan 	110000
+2	Josh	78000
+3	Michael	75000
+4	Jim 	71000
+5	Stanley	69000
+6	Andy	65000
+7	Angela	63000
+8	Kelly	55000
+
+## How many employees work at each branch?
+
+SELECT 
+    branch_id, 
+    COUNT(emp_id)
+FROM 
+    employee
+GROUP BY 
+    branch_id;
+
+branch   count
+1	      2
+2         4
+3         3
+
+## How much is the company paying in salaries for each branch?
+
+SELECT 
+    branch_id, 
+    SUM(salary)
+FROM 
+    employee
+GROUP BY
+    branch_id;
+
+branch id   salary
+    1	    360000
+    2     	262000
+    3	    214000
+  
+## How much did each employee make in sales?  
+  
+SELECT 
+    emp_id, 
+    SUM(total_sales)
+FROM 
+    works_with
+GROUP BY 
+    emp_id;
+
+employee id  total sales
+102           282000
+105     	  218000
+107	          31000
+108	          34500
+
+## Sales Totals with employees name instead of employee id
+
+SELECT 
+    works_with.emp_id, 
+    employee.first_name,   
+    employee.last_name, 
+    SUM(total_sales)
+FROM 
+    works_with
+JOIN 
+    employee
+ON 
+    works_with.emp_id = employee.emp_id
+GROUP BY 
+    works_with.emp_id;
+
+102	Michael	Scott	282000
+105	Stanley	Hudson	218000
+107	Andy	Bernard	31000
+108	Jim	    Halpert	34500
