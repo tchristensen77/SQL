@@ -255,4 +255,44 @@ GROUP BY
 102	Michael	Scott	282000
 105	Stanley	Hudson	218000
 107	Andy	Bernard	31000
-108	Jim	    Halpert	34500
+108	Jim	  Halpert 34500
+
+## Corporate wants to know if any employees have a birthday in July or August?
+
+SELECT first_name, last_name, birth_day
+FROM employee
+WHERE birth_day LIKE '%-07-%'
+OR birth_day LIKE '%-08-%';
+
+Andy	Bernard	1973-07-22
+
+## Do we sell to any schools?
+
+SELECT client_name
+FROM client
+WHERE client_name LIKE '%School%';
+
+Dunmore Highschool
+
+## Corporate wants a full list of employee, branch, and client names for holiday cards.
+
+SELECT first_name
+FROM employee
+UNION
+SELECT branch_name
+FROM branch
+UNION
+SELECT client_name
+FROM client;
+
+## Coporate want to know how much we made in profit this year
+
+SELECT SUM(salary) AS total_salaries,
+(SELECT SUM(total_sales) FROM works_with) AS income,
+total_salaries-income AS profit
+FROM employee
+
+total_salaries   income    profit
+836000	    565500	      270500
+
+
