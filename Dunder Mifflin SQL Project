@@ -1,6 +1,7 @@
 ## In this project, we are working for "Dunder Mifflin" as a Data Analyst.
-## Our boss needs us to add company data to the warehouse then we will be able to provide stakeholders with information about the company.
+## Our boss needs us to create a database for the company then provide stakeholders with information about the company from the database.
 
+##First I need to create the tables in the database
 ## Creating Employee Table
 
 CREATE TABLE employee (
@@ -67,8 +68,9 @@ CREATE TABLE branch_supplier (
     FOREIGN KEY (branch_id) REFERENCES branch(branch_id) ON DELETE CASCADE
 );
 
-## Next we can begin entering data into the tables.
-## However, because the tables have primary and foriegn keys that relate to each other, data must be entered in a specific order.
+
+## Next I can begin entering data into the tables.
+## Because the tables have primary and foriegn keys that relate to each other, data must be entered in a specific order.
 
 INSERT INTO employee 
 VALUES (100, 'David', 'Wallace', '1967-11-17', 'M', 250000, NULL, NULL)
@@ -93,7 +95,7 @@ VALUES(102, 'Michael', 'Scott', '1964-03-15', 'M', 75000, 100, NULl);
 INSERT INTO branch 
 VALUES (2, 'Scanton', 102, '1992-04-06');
 
-## Now we add the foreign key into Michael's information
+## Now I can add the foreign key into Michael's information
 
 UPDATE employee
 SET branch_id = 2
@@ -119,7 +121,7 @@ VALUES (106, 'Josh', 'Porter', '1969-09-05', 'M', 78000, 100, NULL);
 INSERT INTO branch 
 VALUES (3, 'Stamford', 106, '1998-02-13');
 
-## Finally add in Josh's branch ID foreign key.
+## Finally adding in Josh's branch ID foreign key.
 
 UPDATE employee
 SET branch_id = 3
@@ -134,7 +136,7 @@ INSERT INTO employee
 VALUES(108, 'Jim', 'Halpert', '1978-10-01', 'M', 71000, 106, 3);
 
 ## This must have been when Jim left the Scanton branch for a season.
-## Next we add supplier data into the Branch Supplier table
+## Next I can add supplier data into the Branch Supplier table
 
 INSERT INTO branch_supplier VALUES(2, 'Hammer Mill', 'Paper');
 INSERT INTO branch_supplier VALUES(2, 'Uni-ball', 'Writing Utensils');
@@ -144,7 +146,7 @@ INSERT INTO branch_supplier VALUES(3, 'Uni-ball', 'Writing Utensils');
 INSERT INTO branch_supplier VALUES(3, 'Hammer Mill', 'Paper');
 INSERT INTO branch_supplier VALUES(3, 'Stamford Lables', 'Custom Forms');
 
-## Next we need to add client date into the Client table.
+## Next I need to add client date into the Client table.
 
 INSERT INTO client VALUES(400, 'Dunmore Highschool', 2);
 INSERT INTO client VALUES(401, 'Lackawana Country', 2);
@@ -154,7 +156,7 @@ INSERT INTO client VALUES(404, 'Scranton Whitepages', 2);
 INSERT INTO client VALUES(405, 'Times Newspaper', 3);
 INSERT INTO client VALUES(406, 'FedEx', 2);
 
-## Finally we are adding data to the Works With Table
+## Finally I am adding data to the Works With Table
 ## This table had to be entered last because it needed the foreign keys from the client table.
 
 INSERT INTO works_with VALUES(105, 400, 55000);
@@ -167,7 +169,8 @@ INSERT INTO works_with VALUES(107, 405, 26000);
 INSERT INTO works_with VALUES(102, 406, 15000);
 INSERT INTO works_with VALUES(105, 406, 130000);
 
-## Now that all of the information is in Dunder Mifflins data warehouse, our stakeholders want to gain insights from the data.
+
+## Now that all of the information is in Dunder Mifflins database, our stakeholders want to gain insights from the data.
 
 ## Corporate wants to know employees salaries in descending order.
 
@@ -254,7 +257,7 @@ GROUP BY
     107	          31000
     108	          34500
 
-## Sales Totals with employees name instead of employee id
+## Corportae wants Sales Totals with employees name instead of employee id
 
 SELECT 
     works_with.emp_id, 
@@ -313,7 +316,7 @@ FROM employee
 ## total_salaries   income    profit
 836000	       565500	      270500
 
-## Coporate is opening a new branch and needs up to add them to the warehouse.
+## Coporate is opening a new branch and needs up to add them to the database.
 
 INSERT INTO branch
 VALUES (4, 'Buffalo', NULL, NULL);
@@ -344,3 +347,13 @@ Lackawana Country
 Scranton Whitepages
 FedEx
 
+## Corporate realized Oscar, Kevin and Pam where not added to the database and needs it fixed immediately.
+
+INSERT INTO employee
+VALUES(109, 'Oscar', 'Martinez', '1968-02-19', 'M', 69000, 106, 3);
+
+INSERT INTO employee
+VALUES(110, 'Kevin', 'Malone', '1978-02-19', 'M', 69000, 106, 3);
+
+INSERT INTO employee
+VALUES(111, 'Pam', 'Beesly', '1988-02-19', 'F', 69000, 106, 3);
