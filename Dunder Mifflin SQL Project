@@ -179,7 +179,7 @@ FROM
 ORDER BY 
     salary DESC;
 
-  employee   salary
+##  employee   salary
 0	David	250000
 1	Jan 	110000
 2	Josh	78000
@@ -215,10 +215,28 @@ FROM
 GROUP BY
     branch_id;
 
-branch id   salary
+## branch id   salary
     1	    360000
     2     	262000
     3	    214000
+    
+## Corporate wants a list of managers for each branch.
+
+SELECT 
+    employee.emp_id, 
+    employee.first_name, 
+    employee.last_name, 
+    branch.branch_name
+FROM 
+    employee
+JOIN 
+    branch
+ON 
+    employee.emp_id=branch.mrg_id;
+
+100	David	Wallace	Corporate
+102	Michael	Scott	Scanton
+106	Josh	Porter	Stamford
   
 ## How much did each employee make in sales?  
   
@@ -230,11 +248,11 @@ FROM
 GROUP BY 
     emp_id;
 
-employee id  total sales
-102           282000
-105     	  218000
-107	          31000
-108	          34500
+## employee id  total sales
+    102           282000
+    105     	  218000
+    107	          31000
+    108	          34500
 
 ## Sales Totals with employees name instead of employee id
 
@@ -292,7 +310,37 @@ SELECT SUM(salary) AS total_salaries,
 total_salaries-income AS profit
 FROM employee
 
-total_salaries   income    profit
-836000	    565500	      270500
+## total_salaries   income    profit
+836000	       565500	      270500
 
+## Coporate is opening a new branch and needs up to add them to the warehouse.
+
+INSERT INTO branch
+VALUES (4, 'Buffalo', NULL, NULL);
+
+## Corporte wants a list of employees who sold more than 30,000 to a single client
+
+SELECT employee.first_name, employee.last_name
+FROM employee
+WHERE employee.emp_id IN (
+    SELECT works_with.emp_id 
+    FROM works_with 
+    WHERE works_with.total_sales>30000);
+    
+Michael	Scott
+Stanley	Hudson
+
+## Corporate is asking what clients work with the a branch managed by Michael Scott to send them a coupon after an "incident".
+
+SELECT client.client_name
+FROM client
+WHERE branch_id = (
+    SELECT branch_id
+    FROM employee
+    WHERE emp_id=102);
+    
+Dunmore Highschool
+Lackawana Country
+Scranton Whitepages
+FedEx
 
