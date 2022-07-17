@@ -357,3 +357,46 @@ VALUES(110, 'Kevin', 'Malone', '1978-02-19', 'M', 69000, 106, 3);
 
 INSERT INTO employee
 VALUES(111, 'Pam', 'Beesly', '1988-02-19', 'F', 69000, 106, 3);
+
+## The top performing salesman will get a 5% bonus. Who is the best salesman and how much will be get as a bonus?
+
+SELECT 
+    works_with.emp_id, 
+    SUM(total_sales) AS sales_total,
+    employee.first_name,
+    (SUM(total_sales)*0.05) AS bonus
+FROM 
+    works_with
+JOIN 
+    employee
+ON 
+    works_with.emp_id  =employee.emp_id
+GROUP BY 
+    works_with.emp_id
+LIMIT 1;
+
+Michael Scott 14100.00
+
+## Corportate wants to send a coupon to any client who bought more than $30,000 of products.
+
+SELECT
+    client.client_name, 
+    works_with.client_id, 
+    works_with.total_sales
+FROM 
+    works_with
+JOIN 
+    client
+ON 
+    works_with.client_id=client.client_id
+WHERE 
+    total_sales > 30000
+ORDER BY 
+    total_sales DESC
+
+Lackawana Country	401	267000
+FedEx	406	130000
+Dunmore Highschool	400	55000
+Scranton Whitepages	404	33000
+
+
