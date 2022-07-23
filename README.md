@@ -3,7 +3,7 @@ SQL tutorials and projects
 
 In this repository, I'll be practicing SQL and working on projects.
 
-Blog Posts on these projects can be found [here]((https://tdemarree17.wixsite.com/trena-christensen/)
+Blog Posts on these projects can be found here: https://tdemarree17.wixsite.com/trena-christensen/
 
 ## Dunder Mifflin Project
 
