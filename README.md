@@ -9,3 +9,5 @@ The 8 Week SQL Challenge is composed of 8 case studies to practice SQL and analy
 ### Week 1- Danny's Dinner
 In this case study, I am working for a new resturant who started collecting data hoping to improve their business.
 The datasets have then provided and the owner wants me to analyze the data and answer his questions.
+
+Blog post can be read here: https://tdemarree17.wixsite.com/trena-christensen/post/danny-s-dinner-sql-challenge-week-1 
