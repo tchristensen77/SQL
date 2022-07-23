@@ -98,5 +98,36 @@ WITH points_table AS (
 ## 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi -
 ## How many points do customer A and B have at the end of January?
 
+## I struggled with this question so I broke it down into two parts. I will need to learn more about CTEs and case before being able to do it in one query.
+## First I ran a query to find the amount of point the customers got in the first week.
 
+WITH point_cte AS (
+  SELECT product_id, product_name, price,
+  price*20 AS points
+  FROM dannys_diner.menu
+)
+
+ SELECT sales.customer_id, SUM(points) AS total_points
+ FROM point_cte
+ JOIN dannys_diner.sales
+ ON point_cte.product_id=sales.product_id
+ GROUP BY sales.customer_id, sales.order_date
+ HAVING (customer_id= 'A' AND order_date BETWEEN '2021-01-07' AND '2021-01-13')
+ OR (customer_id= 'B' AND order_date BETWEEN '2021-01-09' AND '2021-01-15')
+ 
+ ## Then I ran a second query to see how many points they got through after their double point week had finished through the end of the month.
+ 
+ WITH point_cte AS (
+  SELECT product_id, product_name, price,
+  price*10 AS points
+  FROM dannys_diner.menu
+)
+
+ SELECT sales.customer_id, SUM(points) AS total_points
+ FROM point_cte
+ JOIN dannys_diner.sales
+ ON point_cte.product_id=sales.product_id
+ GROUP BY sales.customer_id, sales.order_date
+ HAVING (customer_id= 'A' AND order_date BETWEEN '2021-01-14' AND '2021-01-31')
+ OR (customer_id= 'B' AND order_date BETWEEN '2021-01-16' AND '2021-01-31')
 
