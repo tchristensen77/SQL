@@ -1,0 +1,10 @@
+## I am working my way through Danny Ma's 8 Week SQL Challenge
+
+## Week 1: Danny's Dinner
+## In this scenario, I am working for a new resturant who has started collecting data in hopes of using it to improve the business
+
+SELECT sales.customer_id, SUM(price)
+FROM dannys_diner.sales
+JOIN dannys_diner.menu
+ON sales.product_id=menu.product_id
+GROUP by sales.customer_id
