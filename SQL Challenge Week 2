@@ -4,3 +4,10 @@
 ## He has been collecting data but it isn't clean and some of the data types are incorrect. 
 
 ## First I will need to clean the data before being able to answer his questions.
+
+UPDATE
+	pizza_runner.customer_orders
+SET 
+  exclusions = 'none'
+WHERE 
+  exclusions = ' '
