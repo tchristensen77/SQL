@@ -17,3 +17,9 @@ In this case study, I am working for a new resturant who started collecting data
 The datasets have then provided and the owner wants me to analyze the data and answer his questions.
 
 Blog post can be read [here](https://tdemarree17.wixsite.com/trena-christensen/post/danny-s-dinner-sql-challenge-week-1)
+
+### Week 2- Pizza Runner
+In this challenege,Danny is trying to launch his pizza business. He has been collecting data but it isn't clean and some of the data types are incorrect.
+I have been hired to clean the data and then answer his questions to help make his business successful.
+
+Blog post will be up soon!
