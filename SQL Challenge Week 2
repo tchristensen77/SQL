@@ -303,17 +303,85 @@ ORDER BY
 
 ## Next I got questions about runner and customers
   
-## 1. What are the standard ingredients for each pizza?
+## 1. How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
 
 SELECT 
-  toppings.topping_name,
-  names.pizza_name
-FROM `course-3-projects-353918.pizza_runner.pizza_toppings` as toppings
-JOIN
-  `course-3-projects-353918.pizza_runner.pizza_recipes` as recipe
-ON
-  toppings.topping_id=recipe.toppings
+  EXTRACT(week FROM pickup_time) AS week, 
+  COUNT(runner_id) AS runners_per_week
+FROM `course-3-projects-353918.pizza_runner.runner_orders`
+WHERE pickup_time IS NOT NULL
+GROUP BY week
+
+## 2. What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
+
+SELECT 
+  runner_id,
+  AVG(DATETIME_DIFF(customer.order_time, runner.pickup_time, minute)) AS avg_time
+FROM
+ `course-3-projects-353918.pizza_runner.runner_orders` AS runner
 JOIN 
-  `course-3-projects-353918.pizza_runner.pizza_names` as names
-ON 
-  recipe.pizza_id=names.pizza_id
+  `course-3-projects-353918.pizza_runner.customer_orders` AS customer
+ON
+  runner.order_id = customer.order_id
+WHERE customer.order_id NOT IN (6, 9)
+GROUP BY runner_id
+
+## 3. Is there any relationship between the number of pizzas and how long the order takes to prepare?
+
+SELECT 
+  runner.order_id,
+  COUNT(runner.order_id) as num_pizza,
+  AVG(DATETIME_DIFF(customer.order_time, runner.pickup_time, minute)) AS avg_time
+FROM
+ `course-3-projects-353918.pizza_runner.runner_orders` AS runner
+JOIN 
+  `course-3-projects-353918.pizza_runner.customer_orders` AS customer
+ON
+  runner.order_id = customer.order_id
+WHERE customer.order_id NOT IN (6, 9)
+GROUP BY runner.order_id
+ORDER BY COUNT(runner.order_id)
+
+## 4. What is the average distance traveled to each customer?
+
+SELECT
+AVG(distance) AS avg_dis
+FROM
+ `course-3-projects-353918.pizza_runner.runner_orders`
+WHERE distance IS NOT NULL
+
+## 5. What is the longest and shortest delivery times?
+
+SELECT
+MAX(duration) AS max,
+MIN(duration) AS min
+FROM
+ `course-3-projects-353918.pizza_runner.runner_orders`
+ 
+ ## 6. What was the average speed for each runner for each delivery and do you notice any trend for these values?
+ 
+ SELECT
+runner_id,
+COUNT(runner_id) AS num_of_orders,
+ROUND(AVG((distance/duration)), 2) AS speed
+FROM
+ `course-3-projects-353918.pizza_runner.runner_orders`
+WHERE order_id NOT IN (6,9)
+GROUP BY runner_id
+ORDER BY runner_id
+
+## 7. What is the successful delivery percentage for each runner?
+WITH trips AS (SELECT
+runner_id,
+CASE WHEN cancellation IS NULL THEN 0
+ELSE 1 END AS completed_trip
+FROM
+ `course-3-projects-353918.pizza_runner.runner_orders`)
+
+SELECT
+runner_id,
+1-(SUM(completed_trip) / COUNT(runner_id)) AS rate
+FROM
+ trips
+GROUP BY runner_id
+GROUP BY runner_id
