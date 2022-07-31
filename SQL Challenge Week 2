@@ -216,12 +216,17 @@ ORDER BY
 ## 4.  How many of each type of pizza was delivered?
 
 SELECT  
-  pizza_id,
-  COUNT(pizza_id) AS count
-FROM
-  `course-3-projects-353918.pizza_runner.customer_orders` 
+    names.pizza_name,
+    COUNT(orders.pizza_id) AS count
+FROM 
+    `course-3-projects-353918.pizza_runner.customer_orders` AS orders
+JOIN
+  `course-3-projects-353918.pizza_runner.pizza_names` AS names
+ON 
+  orders.pizza_id = names.pizza_id
+WHERE order_id NOT IN (6,9)
 GROUP BY 
-  pizza_id
+    pizza_name
 
 ## 5. How many Vegetarian and Meatlovers were ordered by each customer?
 
