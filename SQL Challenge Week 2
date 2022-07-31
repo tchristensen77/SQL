@@ -303,4 +303,17 @@ ORDER BY
 
 ## Next I got questions about runner and customers
   
-# 1. 
+## 1. What are the standard ingredients for each pizza?
+
+SELECT 
+  toppings.topping_name,
+  names.pizza_name
+FROM `course-3-projects-353918.pizza_runner.pizza_toppings` as toppings
+JOIN
+  `course-3-projects-353918.pizza_runner.pizza_recipes` as recipe
+ON
+  toppings.topping_id=recipe.toppings
+JOIN 
+  `course-3-projects-353918.pizza_runner.pizza_names` as names
+ON 
+  recipe.pizza_id=names.pizza_id
