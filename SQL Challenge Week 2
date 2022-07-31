@@ -323,8 +323,10 @@ JOIN
   `course-3-projects-353918.pizza_runner.customer_orders` AS customer
 ON
   runner.order_id = customer.order_id
-WHERE customer.order_id NOT IN (6, 9)
-GROUP BY runner_id
+WHERE 
+  customer.order_id NOT IN (6, 9)
+GROUP BY 
+  runner_id
 
 ## 3. Is there any relationship between the number of pizzas and how long the order takes to prepare?
 
@@ -338,50 +340,79 @@ JOIN
   `course-3-projects-353918.pizza_runner.customer_orders` AS customer
 ON
   runner.order_id = customer.order_id
-WHERE customer.order_id NOT IN (6, 9)
-GROUP BY runner.order_id
-ORDER BY COUNT(runner.order_id)
+WHERE 
+  customer.order_id NOT IN (6, 9)
+GROUP BY 
+  runner.order_id
+ORDER BY 
+  COUNT(runner.order_id)
 
 ## 4. What is the average distance traveled to each customer?
 
 SELECT
-AVG(distance) AS avg_dis
+  AVG(distance) AS avg_dis
 FROM
  `course-3-projects-353918.pizza_runner.runner_orders`
-WHERE distance IS NOT NULL
+WHERE 
+  distance IS NOT NULL
 
 ## 5. What is the longest and shortest delivery times?
 
 SELECT
-MAX(duration) AS max,
-MIN(duration) AS min
+  MAX(duration) AS max,
+  MIN(duration) AS min
 FROM
  `course-3-projects-353918.pizza_runner.runner_orders`
  
  ## 6. What was the average speed for each runner for each delivery and do you notice any trend for these values?
  
  SELECT
-runner_id,
-COUNT(runner_id) AS num_of_orders,
-ROUND(AVG((distance/duration)), 2) AS speed
+  runner_id,
+  COUNT(runner_id) AS num_of_orders,
+  ROUND(AVG((distance/duration)), 2) AS speed
 FROM
  `course-3-projects-353918.pizza_runner.runner_orders`
-WHERE order_id NOT IN (6,9)
-GROUP BY runner_id
-ORDER BY runner_id
+WHERE 
+  order_id NOT IN (6,9)
+GROUP BY 
+  runner_id
+ORDER BY 
+  runner_id
 
 ## 7. What is the successful delivery percentage for each runner?
 WITH trips AS (SELECT
-runner_id,
-CASE WHEN cancellation IS NULL THEN 0
-ELSE 1 END AS completed_trip
+  runner_id,
+  CASE WHEN cancellation IS NULL THEN 0
+  ELSE 1 END AS completed_trip
 FROM
- `course-3-projects-353918.pizza_runner.runner_orders`)
+  `course-3-projects-353918.pizza_runner.runner_orders`)
 
 SELECT
-runner_id,
-1-(SUM(completed_trip) / COUNT(runner_id)) AS rate
+  runner_id,
+  1-(SUM(completed_trip) / COUNT(runner_id)) AS rate
 FROM
  trips
-GROUP BY runner_id
-GROUP BY runner_id
+GROUP BY 
+  runner_id
+GROUP BY 
+  runner_id
+
+## Now moving on to Ingredients
+## 1. What are the standard ingredients for each pizza?
+
+WITH splittopping AS (SELECT pizza_id, SPLIT(toppings, ",") as topping
+FROM `course-3-projects-353918.pizza_runner.pizza_recipes`)
+
+SELECT 
+  pizza_id, topping
+FROM 
+  splittopping
+CROSS JOIN
+UNNEST(topping)
+
+## Still trying to figure out this without building a new table.
+
+## 2. What was the most commonly added extra?
+
+## 3. What was the most common exclusion?
+
