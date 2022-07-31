@@ -4,7 +4,7 @@
 ## He has been collecting data but it isn't clean and some of the data types are incorrect. 
 
 ## First I had to create the tables in BigQuery. 
-## The SQL code was provided in a different dialect so I needed to change it to BigQuery datatype and formatting.
+## The SQL code was provided in a different dialect so I needed to change it to BigQuery datatypes and formatting.
 
 CREATE TABLE `pizza_runner.runners` (
   runner_id INTEGER,
@@ -111,23 +111,16 @@ VALUES
   (11, 'Tomatoes'),
   (12, 'Tomato Sauce');
   
-## First I need to clean the customer orders table.
+## Then I needed to clean the customer orders table.
+## Changing blanks or "null" to NULL
   
 UPDATE `course-3-projects-353918.pizza_runner.customer_orders`
 SET exclusions = NULL
-WHERE customer_id=101
-
-UPDATE `course-3-projects-353918.pizza_runner.customer_orders`
-SET exclusions = NULL
-WHERE order_id=3
+WHERE order_id IN (1,2,3)
 
 UPDATE `course-3-projects-353918.pizza_runner.customer_orders`
 SET exclusions = NULL
 WHERE exclusions = 'null'
-
-UPDATE `course-3-projects-353918.pizza_runner.customer_orders`
-SET extras = NULL
-WHERE extras = 'null'
 
 UPDATE `course-3-projects-353918.pizza_runner.customer_orders`
 SET extras = NULL
@@ -144,8 +137,7 @@ SET cancellation=NULL
 WHERE order_id IN (1,2)
 
 ## Next I need to fix the data types in the customer order and runner order tables.
-
-## First created a temp table 
+## First created a temp table with only the numerical values.
 
 SELECT
 order_id, 
