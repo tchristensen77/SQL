@@ -162,5 +162,21 @@ cancellation
 INTO runner_orders
 FROM `course-3-projects-353918.pizza_runner.runner_order`
 
+## Once this was done, I could start working on the business questions.
+
+## 1. How many pizzas were ordered?
+
+SELECT 
+COUNT(order_id)
+FROM `course-3-projects-353918.pizza_runner.customer_orders` 
+
+# 2. How many unique customer orders were made?
+
+SELECT 
+COUNT(DISTINCT customer_id)
+FROM `course-3-projects-353918.pizza_runner.customer_orders` 
+
+# 3. How many successful orders were delivered by each runner?
+
 
   
