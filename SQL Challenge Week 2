@@ -163,6 +163,7 @@ INTO runner_orders
 FROM `course-3-projects-353918.pizza_runner.runner_order`
 
 ## Once this was done, I could start working on the business questions.
+## First I had questions about metrics
 
 ## 1. How many pizzas were ordered?
 
@@ -196,14 +197,64 @@ GROUP BY pizza_id
 
 # 5. How many Vegetarian and Meatlovers were ordered by each customer?
 
+SELECT  
+customer_id,
+names.pizza_name,
+COUNT(names.pizza_name) AS count
+FROM `course-3-projects-353918.pizza_runner.customer_orders` AS orders
+JOIN
+  `course-3-projects-353918.pizza_runner.pizza_names` AS names
+ON orders.pizza_id=names.pizza_id
+GROUP BY customer_id, names.pizza_name
+
 # 6. What was the maximum number of pizzas delivered in a single order?
+
+SELECT  
+order_id,
+COUNT(order_id) AS num_ordered
+FROM `course-3-projects-353918.pizza_runner.customer_orders` 
+GROUP BY order_id
+ORDER BY COUNT(order_id) DESC
+LIMIT 1
 
 # 7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 
+SELECT  
+customer_id,
+COUNT(customer_id) AS total_orders,
+COUNT(exclusions) AS exclusion,
+COUNT(extras) AS extras,
+CASE WHEN COUNT(extras) > 1 THEN 0
+    WHEN COUNT(exclusions) > 1 THEN 0
+    ELSE 1 END AS orders_with_no_change
+FROM `course-3-projects-353918.pizza_runner.customer_orders` 
+GROUP BY customer_id
+
 # 8. How many pizzas were delivered that had both exclusions and extras?
+
+SELECT  
+COUNT(*) AS pizzas_with_both
+FROM `course-3-projects-353918.pizza_runner.customer_orders` 
+WHERE exclusions IS NOT NULL
+AND extras IS NOT NULL
 
 # 9. What was the total volume of pizzas ordered for each hour of the day?
 
+SELECT
+EXTRACT(Hour FROM order_time) AS hour,
+COUNT(*) AS num_ordered
+FROM `course-3-projects-353918.pizza_runner.customer_orders` 
+GROUP BY hour
+ORDER BY hour
+
 # 10. What was the volume of orders for each day of the week?
 
+SELECT
+EXTRACT(dayofweek FROM order_time) AS weekday,
+COUNT(*) AS num_ordered
+FROM `course-3-projects-353918.pizza_runner.customer_orders` 
+GROUP BY weekday
+ORDER BY weekday
+
+## Next I got questions about runner and customers
   
