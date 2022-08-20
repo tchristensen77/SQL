@@ -1,7 +1,11 @@
+## In this project, I'm completing the SQL Murder Mystery. I'm a detective in SQL City working to find a murderer. 
+## I was provided with some information about the crime but I need to track down the killer.
+
 SELECT *
 FROM crime_scene_report
 WHERE date= 20180115
 AND type = "murder"
+AND city = "SQL City"
 
 ## 20180115	murder	
 ## Security footage shows that there were 2 witnesses.
@@ -139,11 +143,15 @@ ORDER BY count DESC
 
 ## Looking up person id in person table
 
+SELECT *
+FROM person
+WHERE id IN ("24556","99716")
+
 ## id	    name	           license_id 	address_number	address_street_name   	ssn
 ## 24556	Bryan Pardo	       101191	      703	            Machine Ln	      816663882
 ## 99716	Miranda Priestly	 202298	    1883	          Golden Ave	       987756388
 
-## Checking her info in the driver's license
+## Checking her info in the driver's license table
 
 SELECT *
 FROM drivers_license
@@ -152,16 +160,11 @@ WHERE id = "202298"
 ## id	    age	height	eye_color	hair_color	gender	plate_number	car_make	  car_model
 ## 202298	68	66	      green	      red     	female	500123	    Tesla  	    Model S
 
+## Checking the income table
+
+SELECT *
+FROM income
+WHERE ssn = "987756388"
+
 ## Found the killer-- Miranda Priestly
-
-
-
-
-
-
-
-
-
-
-
 
