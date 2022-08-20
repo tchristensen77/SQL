@@ -23,3 +23,9 @@ In this challenege,Danny is trying to launch his pizza business. He has been col
 I have been hired to clean the data and then answer his questions to help make his business successful.
 
 Blog post can be read [here](https://tdemarree17.wixsite.com/trena-christensen/post/danny-s-ma-sql-challenge-week-2).
+
+## SQL Murder Mystery
+
+There has been a murder in SQL City. I have been provided with limited inforation about the crime and need to search the police database for clues.
+
+Blog post can be read [here](https://tdemarree17.wixsite.com/trena-christensen/post/murder-in-sql-city).
